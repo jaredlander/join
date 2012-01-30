@@ -6,7 +6,7 @@
 using namespace std;
 
 // declare type of hash, int keys, value is character
-KHASH_MAP_INIT_INT(32, char)
+KHASH_MAP_INIT_INT64(64, char)
 
 
 int main()
@@ -18,7 +18,7 @@ int main()
     khiter_t k;
     
     // make an int32 hash table named h
-	khash_t(32) *h = kh_init(32);
+	khash_t(64) *h = kh_init(64);
     cout << "Hash before resize: " << kh_size(h) << endl;
     
     int desiredSize;
@@ -48,12 +48,12 @@ int main()
     
     // resize the hash so it's at least as big as fake
     //kh_resize(32, h, fakeSize);
-    kh_resize(32, h, 17);
+    kh_resize(64, h, fakeSize);
     //   kh_clear(32, h);
     
     cout << "Hash after resize: " << kh_size(h) << endl;
     
-    k = kh_put(32, h, fake[0], &ret);
+    k = kh_put(64, h, fake[0], &ret);
     uniques[0] <- fake[0];
     j++;
     for(int i=1; i<fakeSize; i++)
@@ -63,7 +63,7 @@ int main()
         
         // check if this value is in the hash
         cout << "Checking if " << theFake << " is in the hash." << endl;
-        k = kh_get(32, h, theFake);
+        k = kh_get(64, h, theFake);
         //cout << "Did get for " << theBill << endl;
         
         cout << "k: " << k << endl;
@@ -78,7 +78,7 @@ int main()
         else
         {
             cout << theFake << " is not there so let's add it" << endl;
-            k = kh_put(32, h, theFake, &ret);
+            k = kh_put(64, h, theFake, &ret);
             
             uniques[j] = theFake;  // put it into the unique list
             j++;     // iterate j
@@ -96,7 +96,7 @@ int main()
         cout << uniques[i] << endl;
     }
     // delete map
-    kh_destroy(32, h);
+    kh_destroy(64, h);
     
     return 0;
 }
