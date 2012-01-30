@@ -47,11 +47,16 @@ int main()
     int theFake;
     
     // resize the hash so it's at least as big as fake
-    kh_resize(32, h, fakeSize);
-    cout << "Hash after resize: " << kh_size(h) << endl;
-
+    //kh_resize(32, h, fakeSize);
+    kh_resize(32, h, 17);
+    //   kh_clear(32, h);
     
-    for(int i=0; i<fakeSize; i++)
+    cout << "Hash after resize: " << kh_size(h) << endl;
+    
+    k = kh_put(32, h, fake[0], &ret);
+    uniques[0] <- fake[0];
+    j++;
+    for(int i=1; i<fakeSize; i++)
     {
         // hold this value of the vector
         theFake = fake[i];
@@ -63,9 +68,10 @@ int main()
         
         cout << "k: " << k << endl;
         
-        isThere = kh_exist(h, k);
-        cout << "isThere: " << isThere << endl;
-        if(isThere)//
+        //isThere = kh_exist(h, k);
+        //cout << "isThere: " << isThere << endl;
+        //if(isThere)//
+        if(kh_exist(h, k))
         {
             cout << theFake << " is in!" << endl;
         }
@@ -75,7 +81,7 @@ int main()
             k = kh_put(32, h, theFake, &ret);
             
             uniques[j] = theFake;  // put it into the unique list
-            j += 1;     // iterate j
+            j++;     // iterate j
         }
         cout << "Hash size after adding: " << kh_size(h) << endl;
     }
