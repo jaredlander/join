@@ -15,7 +15,7 @@ using namespace Rcpp;
 /* begin function definition*/                                     
 /* Instantiate the apropriate hash functions */                     
 KHASH_MAP_INIT_STR(str, char)
-vector <string> unique_str_compute(vector <string> incoming)                  
+vector <string> unique_str_compute(CharacterVector incoming)                  
 {                                                                   
     /* Get the size the vector */                                   
     int theSize = incoming.size();                                  
@@ -58,7 +58,7 @@ vector <string> unique_str_compute(vector <string> incoming)
     }                                                               
                                                                     
     /* destroy the hash */                                          
-    kh_destroy(32, h);                                        
+    kh_destroy(str, h);                                        
                                                                     
     /* resize the unique vector to get rid of the empty cells */    
     uniques.resize(j);                                              
@@ -94,8 +94,8 @@ SEXP unique_str(SEXP x)
 
 
 // Build R function for integers with 32 bit key
-MakeRFunction(32, int)
+//MakeRFunction(32, int)
 // Build R function for integers with 64 bit key
-MakeRFunction(64, int)
+//MakeRFunction(64, int)
 // Build R function for strings with string key
-MakeRFunction(str, string)
+//MakeRFunction(str, string)
