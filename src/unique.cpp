@@ -71,7 +71,7 @@ vector <outType> unique_##hashName##_compute(inType incoming)                  \
 
 
 // Build integer uniqueing using 32 bit keys
-//MakeHashFunction(INT, 32, int, IntegerVector)
+MakeHashFunction(INT, 32, int, IntegerVector)
 // Build integer uniqueing using 64 bit keys
 MakeHashFunction(INT64, 64, int, IntegerVector)
 // Build string uniqueing using string keys
