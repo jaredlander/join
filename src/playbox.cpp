@@ -15,7 +15,7 @@ using namespace Rcpp;
 /* begin function definition*/                                     
 /* Instantiate the apropriate hash functions */                     
 KHASH_MAP_INIT_STR(str, char)
-vector <string> unique_str_compute(CharacterVector incoming)                  
+vector <string> unique_str_compute(vector <string> incoming)                  
 {                                                                   
     /* Get the size the vector */                                   
     int theSize = incoming.size();                                  
@@ -37,12 +37,14 @@ vector <string> unique_str_compute(CharacterVector incoming)
                                                                     
     /* resize the hash so it's at least as big as incoming */       
     kh_resize(str, h, theSize);                                
+    string* a = &incoming[0];
                                                                     
     for(int i=0; i<theSize; i++)                                    
     {                                                               
+        //string mine = (string) incoming[i];
         /* put the key into the hash */                             
         /* ret will indicate if the key was already there, 0 if it is there already */  
-        k = kh_put(str, h, incoming[i], &ret);                 
+        k = kh_put(str, h, a[i], &ret);                 
                                                                     
         if(ret == 0)                                                
         {                                                           
@@ -87,7 +89,9 @@ vector <string> unique_str_compute(CharacterVector incoming)
 /* Code to generate functions that are called from R */     
 SEXP unique_str(SEXP x)                                 
 {                                                           
-    vector <string> uniques = unique_str_compute(x);   
+    vector <string> x_ = as<vector <string> >(x);
+    //CharacterVector x_(x);
+    vector <string> uniques = unique_str_compute(x_);   
                                                             
     return(wrap(uniques));                                  
 }
