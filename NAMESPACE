@@ -1,0 +1,4 @@
+useDynLib(join)
+export(unique.character)
+export(unique.integer)
+export(unique.numeric)

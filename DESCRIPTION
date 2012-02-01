@@ -1,0 +1,15 @@
+Package: join
+Type: Package
+Title: Fast Joins
+Version: 0.1.1
+Date: 2012-01-16
+Author: Jared P. Lander
+Maintainer: <packages@jaredlander.com>
+Description: Fast joins and unique operations
+License: BSD
+LazyLoad: yes
+Depends:
+    Rcpp (>= 0.9.9)
+LinkingTo: Rcpp
+Collate:
+    'unique.r'

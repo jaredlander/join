@@ -1,7 +1,5 @@
-#include <vector>
 #include "khash.h"
 #include "unique.h"
-#include <Rcpp.h>
 
 using namespace std;
 using namespace Rcpp;
