@@ -1,5 +1,5 @@
 #include "khash.h"
-#include "unique.h"
+#include <Rcpp.h>
 //#include <iostream>
 
 using namespace std;
@@ -61,6 +61,9 @@ vector <int> unique_32_compute(vector <int> incoming)
         }                                                           
         
         //cout << "ret for " << incoming[i] << ": " << ret << endl;
+        
+        // give a chance for interuption
+        //R_CheckUserInterrupt();       // slows down the program WAY TOO much!!!
     }                                                               
                                                                     
     /* destroy the hash */                                          
@@ -69,8 +72,6 @@ vector <int> unique_32_compute(vector <int> incoming)
     /* resize the unique vector to get rid of the empty cells */    
     uniques.resize(j);                                              
                                                                     
-    // give a chance for interuption
-    R_CheckUserInterrupt();
     
     /* return the vector of unique values */                        
     return(uniques);                                                
@@ -94,7 +95,7 @@ vector <int> unique_32_compute(vector <int> incoming)
 */
 
 /* Code to generate functions that are called from R */     
-SEXP unique_32(SEXP x)                                 
+RcppExport SEXP unique_32(SEXP x)                                 
 {                                                           
     vector <int> x_ = as<vector <int> >(x);
     //CharacterVector x_(x);
