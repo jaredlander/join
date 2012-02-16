@@ -1,7 +1,6 @@
 #include "khash.h"
 #include <Rcpp.h>
-#include <string>
-#include <iostream>
+//#include <string>
 
 using namespace std;
 using namespace Rcpp;
@@ -15,30 +14,28 @@ using namespace Rcpp;
   @return       A vector of unique values
 */
 /* begin function definition*/                                     
-/* Instantiate the apropriate hash functions */                     
-//KHASH_MAP_INIT_INT(32, int)
+/* Instantiate the apropriate hash functions */
 KHASH_SET_INIT_STR(str)
 //vector <string> unique_str_compute(vector <string> incoming)
 vector <const char *> unique_str_compute(vector <const char *> incoming)
-{                                                                   
-    /* Get the size the vector */                                   
-    int theSize = incoming.size();                                  
-                                                                    
-    /* record keeping vars */                                       
-    int ret;                                                        
-                                                                    
+{
+    /* Get the size the vector */
+    int theSize = incoming.size();
+    /* record keeping vars */
+    int ret;
+
     /* unique counter, start at 0 */                                
     int j = 0;                                                      
-                                                                    
-    /* allocate vector for storing unique values, make it at least as big as incoming */   
-    vector <const char *> uniques(theSize);                              
-                                                                    
-    /* iterator var */                                              
-    khiter_t k;                                                     
-                                                                    
-    /* make an int32 hash table named h */                          
-	khash_t(str) *h = kh_init(str);                       
-                                                                    
+
+    /* allocate vector for storing unique values, make it at least as big as incoming */
+    vector <const char *> uniques(theSize);
+
+    /* iterator var */
+    khiter_t k;
+
+    /* make an int32 hash table named h */
+	khash_t(str) *h = kh_init(str);
+
     /* resize the hash so it's at least as big as incoming */       
     kh_resize(str, h, theSize);                                
     
@@ -55,7 +52,7 @@ vector <const char *> unique_str_compute(vector <const char *> incoming)
         
         //k = kh_put(str, h, inserter, &ret);
         k = kh_put(str, h, incoming[i], &ret);
-                                                                    
+
         if(ret == 0)                                                
         {                                                           
             /* do nothing */                                        
@@ -64,27 +61,19 @@ vector <const char *> unique_str_compute(vector <const char *> incoming)
         {                                                           
             /* put it into the unique list */                       
             uniques[j++] = incoming[i];
-            //cout << "pushing" << endl;
             //uniques.push_back(incoming[i]);
-            //cout << "pushed" << endl;
-            //j++;
-            //kh_val(h, k) = 1;
-            /* iterate j */                                         
-            //j++;                                                    
         }                                                           
         
-        //cout << "ret for " << incoming[i] << ": " << ret << endl;
         // give a chance for interuption
         //R_CheckUserInterrupt();
     }                                                               
-    //cout << "done" << endl;
+
     /* destroy the hash */                                          
     kh_destroy(str, h);                                        
-                                                                    
+
     /* resize the unique vector to get rid of the empty cells */    
     uniques.resize(j);                                              
-                                                                    
-    cout << "returning" << endl;
+
     /* return the vector of unique values */                        
     return(uniques);                                                
 }                                                                   

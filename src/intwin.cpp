@@ -1,6 +1,5 @@
 #include "khash.h"
 #include <Rcpp.h>
-//#include <iostream>
 
 using namespace std;
 using namespace Rcpp;
@@ -14,8 +13,7 @@ using namespace Rcpp;
   @return       A vector of unique values
 */
 /* begin function definition*/                                     
-/* Instantiate the apropriate hash functions */                     
-//KHASH_MAP_INIT_INT(32, int)
+/* Instantiate the apropriate hash functions */
 KHASH_SET_INIT_INT(32)
 vector <int> unique_32_compute(vector <int> incoming)                  
 {                                                                   
@@ -54,24 +52,18 @@ vector <int> unique_32_compute(vector <int> incoming)
         else                                                        
         {                                                           
             /* put it into the unique list */                       
-            uniques[j++] = incoming[i];                               
-            //kh_val(h, k) = 1;
-            /* iterate j */                                         
-            //j++;                                                    
-        }                                                           
-        
-        //cout << "ret for " << incoming[i] << ": " << ret << endl;
+            uniques[j++] = incoming[i];
+        }
         
         // give a chance for interuption
         //R_CheckUserInterrupt();       // slows down the program WAY TOO much!!!
     }                                                               
-                                                                    
-    /* destroy the hash */                                          
+
+    /* destroy the hash */
     kh_destroy(32, h);                                        
-                                                                    
+
     /* resize the unique vector to get rid of the empty cells */    
     uniques.resize(j);                                              
-                                                                    
     
     /* return the vector of unique values */                        
     return(uniques);                                                
